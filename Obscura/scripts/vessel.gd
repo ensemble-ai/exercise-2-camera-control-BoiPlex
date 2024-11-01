@@ -1,7 +1,7 @@
 class_name Vessel
 extends CharacterBody3D
 
-@export var terrforming_power:float = 1.0
+@export var terrforming_power:float = 5.0
 @export var terrain_manager:TerrainManager
 
 const RADIUS:float = 0.5
@@ -46,6 +46,7 @@ func _physics_process(_delta):
 
 	move_and_slide()
 
+
 func _play(player:AudioStreamPlayer2D) -> void:
-	if !player.playing:
+	if not player.playing:
 		player.play()
