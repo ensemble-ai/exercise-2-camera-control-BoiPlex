@@ -137,10 +137,27 @@ Please refer to the first code review template on how to do a permalink.
 
 #### Style Guide Infractions ####
 
+[The variable _catchup_timer in Stage 4](https://github.com/ensemble-ai/exercise-2-camera-control-BoiPlex/blob/53981a36b2f7acbc813336a998c3e3c75e78e829/Obscura/scripts/camera_controllers/lerp_smoothing_target_focus.gd#L10) - It does not follow the PascalCase naming convention recommended for class-level variables in GDScript. Using PascalCase ensures consistency with other class-level variables and constants in the codebase.
+
+[The variable _pushbox in Stage 5](https://github.com/ensemble-ai/exercise-2-camera-control-BoiPlex/blob/53981a36b2f7acbc813336a998c3e3c75e78e829/Obscura/scripts/camera_controllers/speedup_push_zone.gd#L13C1-L13C29) -  GDScript style guide discourages using underscores for private variables, as GDScript doesn't enforce access modifiers like private. The convention is to use PascalCase for all class-level variables regardless of visibility.
+
+
+[The variable catchup_delay_duration in Stage 4](https://github.com/ensemble-ai/exercise-2-camera-control-BoiPlex/blob/53981a36b2f7acbc813336a998c3e3c75e78e829/Obscura/scripts/camera_controllers/lerp_smoothing_target_focus.gd#L5) - The variable name is unnecessarily long, making the code harder to read. According to the style guide, variable names should be concise yet descriptive. For example, CatchupDelay is shorter but conveys the same meaning.
+
 #### Style Guide Exemplars ####
 
-___
-#### Put style guide infractures ####
+[The function name draw_logic in Stage 4](https://github.com/ensemble-ai/exercise-2-camera-control-BoiPlex/blob/53981a36b2f7acbc813336a998c3e3c75e78e829/Obscura/scripts/camera_controllers/lerp_smoothing_target_focus.gd#L46) - It has a descriptive name that clearly indicate its purpose. The GDScript style guide recommends using clear and concise function names to enhance readability, which this code achieves.
+
+[The Constant DEFAULT_PUSHBOX_SIZE in Stage 5](https://github.com/ensemble-ai/exercise-2-camera-control-BoiPlex/blob/53981a36b2f7acbc813336a998c3e3c75e78e829/Obscura/scripts/camera_controllers/speedup_push_zone.gd#L4) -  It is used effectively to define a default value for the pushboxzone size, ensuring the value is easily configurable and clearly understood.
+
+
+[The function lerp used in a line in Stage 3](https://github.com/ensemble-ai/exercise-2-camera-control-BoiPlex/blob/53981a36b2f7acbc813336a998c3e3c75e78e829/Obscura/scripts/camera_controllers/lerp_smoothing_position_lock.gd#L37) - The lerp() function is used effectively in multiple scenarios to smoothly interpolate the camera's position toward the target. This ensures the camera movement feels natural and responsive to the player’s movements.
+
+[The @export used in Stage 4](https://github.com/ensemble-ai/exercise-2-camera-control-BoiPlex/blob/53981a36b2f7acbc813336a998c3e3c75e78e829/Obscura/scripts/camera_controllers/lerp_smoothing_target_focus.gd#L7) - The use of @export here follows the GDScript style guide by allowing designers to configure leash_distance directly in the editor without altering the script.
+
+[The Use of Await in Stage 1](https://github.com/ensemble-ai/exercise-2-camera-control-BoiPlex/blob/53981a36b2f7acbc813336a998c3e3c75e78e829/Obscura/scripts/camera_controllers/position_lock.gd#L55C2-L55C32) - The use of await ensures the temporary mesh is properly cleaned up after the next frame, preventing unnecessary memory usage or potential leaks.
+
+[Using _pushbox Dictionary in Stage 5](https://github.com/ensemble-ai/exercise-2-camera-control-BoiPlex/blob/53981a36b2f7acbc813336a998c3e3c75e78e829/Obscura/scripts/camera_controllers/speedup_push_zone.gd#L20) - Using dictionaries to group related variables improves readability and structure, following the GDScript style guide's focus on clarity and organization.
 
 ___
 
@@ -158,8 +175,6 @@ This should be similar to the Code Style justification.
 #### Best Practices Infractions ####
 [The repeated creation and cleanup of MeshInstance3D objects in draw_logic() might impact performance. You should consider optimizing by reusing these objects](https://github.com/ensemble-ai/exercise-2-camera-control-BoiPlex/blob/53981a36b2f7acbc813336a998c3e3c75e78e829/Obscura/scripts/camera_controllers/lerp_smoothing_target_focus.gd#L46).
 
-Default sizes like [DEFAULT_PUSHBOX_SIZE](https://github.com/ensemble-ai/exercise-2-camera-control-BoiPlex/blob/53981a36b2f7acbc813336a998c3e3c75e78e829/Obscura/scripts/camera_controllers/speedup_push_zone.gd#L4_) and [DEFAULT_SPEEDUP_ZONE_SIZE in Stage 5 ](https://github.com/ensemble-ai/exercise-2-camera-control-BoiPlex/blob/53981a36b2f7acbc813336a998c3e3c75e78e829/Obscura/scripts/camera_controllers/speedup_push_zone.gd#L5) could be configurable at runtime or stored in a global configuration.
-
 [Variables like push_ratio](https://github.com/ensemble-ai/exercise-2-camera-control-BoiPlex/blob/53981a36b2f7acbc813336a998c3e3c75e78e829/Obscura/scripts/camera_controllers/speedup_push_zone.gd#L7) and [pushbox_top_left do not have checks to ensure valid values](https://github.com/ensemble-ai/exercise-2-camera-control-BoiPlex/blob/53981a36b2f7acbc813336a998c3e3c75e78e829/Obscura/scripts/camera_controllers/speedup_push_zone.gd#L8). For example, push_ratio should not be negative. If this value is negative, the camera could move in the opposite direction, leading to erratic behavior.
 
 Complex sections, such as calculating diff and distance or implementing lerp logic, lack comments explaining the purpose and behavior of these calculations. So do key areas like calculating the difference between target and camera positions or determining boundaries.
@@ -171,6 +186,8 @@ Complex sections, such as calculating diff and distance or implementing lerp log
 
 [The use of dictionaries to define pushbox and speedup zone boundaries in Stage 5 is a clean and extensible way to handle boundary definitions](https://github.com/ensemble-ai/exercise-2-camera-control-BoiPlex/blob/53981a36b2f7acbc813336a998c3e3c75e78e829/Obscura/scripts/camera_controllers/speedup_push_zone.gd#L13C1-L14C34). This approach improves both readability and maintainability by grouping related boundary values into a single structure. Instead of handling multiple separate variablesthe dictionaries centralize this data, allowing for easier updates and modifications.
 
-[Super calls in _ready() and _process() ensure proper initialization](https://github.com/ensemble-ai/exercise-2-camera-control-BoiPlex/blob/53981a36b2f7acbc813336a998c3e3c75e78e829/Obscura/scripts/camera_controllers/lerp_smoothing_target_focus.gd#L13) and maintain the parent class functionality. [The use of super() calls in the _ready() and _process() methods](https://github.com/ensemble-ai/exercise-2-camera-control-BoiPlex/blob/53981a36b2f7acbc813336a998c3e3c75e78e829/Obscura/scripts/camera_controllers/lerp_smoothing_target_focus.gd#L43) demonstrates adherence to good object-oriented programming (OOP) principles. These calls are essential for ensuring that the functionality of the parent class is properly initialized and maintained, which promotes clean and extensible code design.
+[Super calls in _ready() and _process() ensure proper initialization](https://github.com/ensemble-ai/exercise-2-camera-control-BoiPlex/blob/53981a36b2f7acbc813336a998c3e3c75e78e829/Obscura/scripts/camera_controllers/lerp_smoothing_target_focus.gd#L13) and maintain the parent class functionality. [The use of super() calls in the _ready() and _process() methods](https://github.com/ensemble-ai/exercise-2-camera-control-BoiPlex/blob/53981a36b2f7acbc813336a998c3e3c75e78e829/Obscura/scripts/camera_controllers/lerp_smoothing_target_focus.gd#L43) demonstrates adherence to good object-oriented programming principles. These calls are essential for ensuring that the functionality of the parent class is properly initialized and maintained, which promotes clean and extensible code design.
 
-The _draw_box() method ensures reusability because the same function is used to draw multiple boundary boxes, avoiding repetitive code. IReadability: The logic for drawing the box is separated into a dedicated method, making the main draw_logic function cleaner.
+[The _draw_box() method ensures reusability because the same function is used to draw multiple boundary boxes, avoiding repetitive code. It also ensures readability, since the logic for drawing the box is separated into a dedicated method, making the main draw_logic function cleaner. Lastly, it ensures extensibility since if additional types of boxes or drawing logic are required, this method can be easily adapted.](https://github.com/ensemble-ai/exercise-2-camera-control-BoiPlex/blob/53981a36b2f7acbc813336a998c3e3c75e78e829/Obscura/scripts/camera_controllers/speedup_push_zone.gd#L115)
+
+The logic for determining the camera's movement based on the target's position relative to the pushbox and speedup zone is well-structured and follows a systematic approach. The use of conditional checks to calculate push_x and push_z ensures that the camera's behavior follows stage requirements.
